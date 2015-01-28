@@ -57,3 +57,17 @@ compress (x:xs)
 pack :: (Eq a) => [a] -> [[a]]
 pack [] = []
 pack (x:xs) = (x :(takeWhile (== x) xs)) : pack  (dropWhile (== x) xs)
+
+--Problem 10
+-- Run-length encoding of a list.
+-- Use the result of problem P09 to implement the so-called run-length encoding data compression method.
+-- Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+encode :: (Eq a) => [a] -> [(Int,a)]
+encode [] = []
+encode xs = 
+    let
+        list = pack xs
+    in
+      map (\xs -> (myLength xs,head xs)) list
+    
+
