@@ -1,4 +1,5 @@
 # 下階層全てのフォルダ内で ".DS_Store" ファイルを無視したい
 */.DS_Store
 
-*/*flymake.hs
+*flymake.hs
+
