@@ -80,3 +80,12 @@ encodeModified  = map encodeHelper . encode
     where
       encodeHelper (1,x) = Single x
       encodeHelper (n,x) = Multiple n x
+
+--Problem 12
+-- Decode a run-length encoded list.
+decodeModified :: [ListType a] -> [a]
+decodeModified [] = []
+decodeModified (x:xs) = decodeHelper x ++ decodeModified xs 
+    where
+      decodeHelper (Single x) = replicate 1 x
+      decodeHelper (Multiple i x) = replicate i x
