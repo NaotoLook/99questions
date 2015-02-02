@@ -104,3 +104,13 @@ decodeModified (x:xs) = decodeHelper x ++ decodeModified xs
 dupli :: [a] -> [a]
 dupli [] = []
 dupli (x:xs) = x : x : dupli xs 
+
+--Problem 15
+-- Replicate the elements of a list a given number of times.
+-- > repli "abc" 3
+-- "aaabbbccc"
+repli :: [a] -> Int -> [a]
+repli [] _ = []
+repli (x:xs) n
+    | n <= 0    = []
+    | otherwise = replicate n x ++ repli xs n 
