@@ -54,6 +54,9 @@ compress (x:xs)
 --Problem 9
 -- Pack consecutive duplicates of list elements into sublists. 
 -- If a list contains repeated elements they should be placed in separate sublists.
+-- Example :
+-- Main> pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']
+-- ["aaaa","b","cc","aa","d","eeee"]
 pack :: (Eq a) => [a] -> [[a]]
 pack [] = []
 pack (x:xs) = (x :(takeWhile (== x) xs)) : pack  (dropWhile (== x) xs)
@@ -62,6 +65,9 @@ pack (x:xs) = (x :(takeWhile (== x) xs)) : pack  (dropWhile (== x) xs)
 -- Run-length encoding of a list.
 -- Use the result of problem P09 to implement the so-called run-length encoding data compression method.
 -- Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
+-- Example : 
+-- encode "aaaabccaadeeee"
+-- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
 encode :: (Eq a) => [a] -> [(Int,a)]
 encode [] = []
 encode xs = 
@@ -89,3 +95,12 @@ decodeModified (x:xs) = decodeHelper x ++ decodeModified xs
     where
       decodeHelper (Single x) = replicate 1 x
       decodeHelper (Multiple i x) = replicate i x
+
+--Problem 14
+-- Duplicate the elements of a list.
+-- Exaple : 
+-- > dupli [1, 2, 3]
+-- [1,1,2,2,3,3]
+dupli :: [a] -> [a]
+dupli [] = []
+dupli (x:xs) = x : x : dupli xs 
