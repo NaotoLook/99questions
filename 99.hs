@@ -116,7 +116,7 @@ repli (x:xs) n
     | n <= 0    = []
     | otherwise = replicate n x ++ repli xs n 
 
---Problem 17
+--Problem 16
 -- Drop every N'th element from a list.
 -- Example :
 -- > dropEvery "abcdefghik" 3
