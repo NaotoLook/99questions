@@ -98,7 +98,7 @@ decodeModified (x:xs) = decodeHelper x ++ decodeModified xs
 
 --Problem 14
 -- Duplicate the elements of a list.
--- Exaple : 
+-- Example : 
 -- > dupli [1, 2, 3]
 -- [1,1,2,2,3,3]
 dupli :: [a] -> [a]
@@ -107,6 +107,7 @@ dupli (x:xs) = x : x : dupli xs
 
 --Problem 15
 -- Replicate the elements of a list a given number of times.
+-- Example :
 -- > repli "abc" 3
 -- "aaabbbccc"
 repli :: [a] -> Int -> [a]
@@ -114,3 +115,21 @@ repli [] _ = []
 repli (x:xs) n
     | n <= 0    = []
     | otherwise = replicate n x ++ repli xs n 
+
+--Problem 17
+-- Drop every N'th element from a list.
+-- Example :
+-- > dropEvery "abcdefghik" 3
+-- "abdeghk"
+dropEvery :: [a] -> Int -> [a]
+dropEvery [] _  = []
+dropEvery xs n
+    | n < 0     = error "error"
+    | n == 0    = xs
+    | n > length xs = xs
+    | otherwise = (init $ take n xs) ++ dropEvery (dropEvery' xs n) n
+    where
+      dropEvery' [] _ = []
+      dropEvery' xs n
+          | n == 0    = xs 
+          | otherwise = dropEvery' (tail xs) (n-1) 
