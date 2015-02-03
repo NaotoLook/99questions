@@ -133,3 +133,16 @@ dropEvery xs n
       dropEvery' xs n
           | n == 0    = xs 
           | otherwise = dropEvery' (tail xs) (n-1) 
+
+--Problem 17
+-- Split a list into two parts; the length of the first part is given.
+-- Example : 
+-- Main> split "abcdefghik" 3
+-- ("abc", "defghik")
+split :: [a] -> Int -> ([a],[a])
+split [] _ = ([],[])
+split all@(x:xs) n
+    | n > 0     = (x:y,ys)
+    | otherwise = ([],all)
+    where 
+      (y,ys) = split xs (n-1)
