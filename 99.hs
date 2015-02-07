@@ -146,3 +146,13 @@ split all@(x:xs) n
     | otherwise = ([],all)
     where 
       (y,ys) = split xs (n-1)
+
+--Problem 18
+-- Extract a slice from a list.
+-- Main> slice ['a','b','c','d','e','f','g','h','i','k'] 3 7
+-- "cdefg"
+slice :: [a] -> Int -> Int -> [a]
+slice (x:xs) sPosition ePosition 
+    | sPosition > 1 && ePosition > 1 = slice xs (sPosition-1) (ePosition-1)
+    | sPosition == 1 && ePosition > 1 = x : slice xs sPosition (ePosition-1)
+    | sPosition == 1 && ePosition == 1 = [x]
