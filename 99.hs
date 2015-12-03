@@ -15,7 +15,7 @@ elementAt :: [a]-> Int -> a
 elementAt elements n
     | n >= length elements = error "No element"
     | n == 1 = head elements
-    | n >  1 = elementAt (tail elements) (n-1) 
+    | n >  1 = elementAt (tail elements) (n-1)
 
 --Problem 4
 -- Find the number of elements of a list.
@@ -27,14 +27,14 @@ myLength (_:xs) = myLength xs + 1
 -- Reverse a list.
 myReverse :: [a] -> [a]
 myReverse [] = []
-myReverse xs = last xs : (myReverse $ init xs) -- myReverse xs ++ [x] 
+myReverse xs = last xs : (myReverse $ init xs) -- myReverse xs ++ [x]
 
 --Problem 6
 -- Find out whether a list is a palindrome.
-isPalindrome :: (Eq a) => [a] -> Bool 
+isPalindrome :: (Eq a) => [a] -> Bool
 isPalindrome xs = xs == (reverse xs)
 
---Problem 7 
+--Problem 7
 -- Flatten a nested list structure.
 data NestedList a = Elem a | List [NestedList a]
 flatten (Elem a) = [a]
@@ -52,7 +52,7 @@ compress (x:xs)
     |       otherwise = x : compress xs
 
 --Problem 9
--- Pack consecutive duplicates of list elements into sublists. 
+-- Pack consecutive duplicates of list elements into sublists.
 -- If a list contains repeated elements they should be placed in separate sublists.
 -- Example :
 -- Main> pack ['a', 'a', 'a', 'a', 'b', 'c', 'c', 'a', 'a', 'd', 'e', 'e', 'e', 'e']
@@ -65,24 +65,24 @@ pack (x:xs) = (x :(takeWhile (== x) xs)) : pack  (dropWhile (== x) xs)
 -- Run-length encoding of a list.
 -- Use the result of problem P09 to implement the so-called run-length encoding data compression method.
 -- Consecutive duplicates of elements are encoded as lists (N E) where N is the number of duplicates of the element E.
--- Example : 
+-- Example :
 -- encode "aaaabccaadeeee"
 -- [(4,'a'),(1,'b'),(2,'c'),(2,'a'),(1,'d'),(4,'e')]
 encode :: (Eq a) => [a] -> [(Int,a)]
 encode [] = []
-encode xs = 
+encode xs =
     let
         list = pack xs
     in
       map (\xs -> (myLength xs,head xs)) list
-    
+
 --Problem 11
 -- Modified run-length encoding.
 data ListType a = Single a | Multiple Int a
                 deriving (Show)
 
-encodeModified :: (Eq a) => [a] -> [ListType a] 
-encodeModified  = map encodeHelper . encode 
+encodeModified :: (Eq a) => [a] -> [ListType a]
+encodeModified  = map encodeHelper . encode
     where
       encodeHelper (1,x) = Single x
       encodeHelper (n,x) = Multiple n x
@@ -91,19 +91,19 @@ encodeModified  = map encodeHelper . encode
 -- Decode a run-length encoded list.
 decodeModified :: [ListType a] -> [a]
 decodeModified [] = []
-decodeModified (x:xs) = decodeHelper x ++ decodeModified xs 
+decodeModified (x:xs) = decodeHelper x ++ decodeModified xs
     where
       decodeHelper (Single x) = replicate 1 x
       decodeHelper (Multiple i x) = replicate i x
 
 --Problem 14
 -- Duplicate the elements of a list.
--- Example : 
+-- Example :
 -- > dupli [1, 2, 3]
 -- [1,1,2,2,3,3]
 dupli :: [a] -> [a]
 dupli [] = []
-dupli (x:xs) = x : x : dupli xs 
+dupli (x:xs) = x : x : dupli xs
 
 --Problem 15
 -- Replicate the elements of a list a given number of times.
@@ -114,7 +114,7 @@ repli :: [a] -> Int -> [a]
 repli [] _ = []
 repli (x:xs) n
     | n <= 0    = []
-    | otherwise = replicate n x ++ repli xs n 
+    | otherwise = replicate n x ++ repli xs n
 
 --Problem 16
 -- Drop every N'th element from a list.
@@ -131,12 +131,12 @@ dropEvery xs n
     where
       dropEvery' [] _ = []
       dropEvery' xs n
-          | n == 0    = xs 
-          | otherwise = dropEvery' (tail xs) (n-1) 
+          | n == 0    = xs
+          | otherwise = dropEvery' (tail xs) (n-1)
 
 --Problem 17
 -- Split a list into two parts; the length of the first part is given.
--- Example : 
+-- Example :
 -- Main> split "abcdefghik" 3
 -- ("abc", "defghik")
 split :: [a] -> Int -> ([a],[a])
@@ -144,7 +144,7 @@ split [] _ = ([],[])
 split all@(x:xs) n
     | n > 0     = (x:y,ys)
     | otherwise = ([],all)
-    where 
+    where
       (y,ys) = split xs (n-1)
 
 --Problem 18
@@ -152,7 +152,10 @@ split all@(x:xs) n
 -- Main> slice ['a','b','c','d','e','f','g','h','i','k'] 3 7
 -- "cdefg"
 slice :: [a] -> Int -> Int -> [a]
-slice (x:xs) sPosition ePosition 
+slice (x:xs) sPosition ePosition
     | sPosition > 1 && ePosition > 1 = slice xs (sPosition-1) (ePosition-1)
     | sPosition == 1 && ePosition > 1 = x : slice xs sPosition (ePosition-1)
     | sPosition == 1 && ePosition == 1 = [x]
+
+main :: IO ()
+main = putStrLn "Hello World"
